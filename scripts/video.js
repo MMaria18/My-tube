@@ -11,6 +11,19 @@ const create= ()=>{
 
 }
 
+function getTime(time){
+    const hours = parseInt(time/3600);
+
+    let remainingHour = time%3600
+
+    const min = parseInt(remainingHour/60)
+   let remainingMin = remainingHour%60;
+
+   const sec =remainingMin;
+
+    return `${hours} hours ${min} min ${sec} sec ago`
+}
+
 
 
 
@@ -63,11 +76,14 @@ const videoDisplay =(video) =>{
 
         card.innerHTML=`
 
-         <figure class="h-[200px]">
+         <figure class="h-[200px] relative">
     <img
       src="${element.thumbnail}"
       class="h-full w-full object-cover"
       alt="Shoes" />
+      ${element.others.posted_date?.length === 0 ? "" : ` <span class="absolute bg-black text-white text-xs right-3 rounded-md bottom-4 p-1
+      ">${getTime(element.others.posted_date)} </span>`}
+     
   </figure>
     
     <div class="px-0 py-2 flex gap-2">
@@ -79,14 +95,17 @@ const videoDisplay =(video) =>{
 
     <div class="flex items-center gap-2">
     <p>${element.authors[0].profile_name}</p>
-    <img class="w-5" src="https://img.icons8.com/?size=96&id=D9RtvkuOe31p&format=png"/>
+
+    ${element.authors[0].verified === true ?  '<img class="w-5" src="https://img.icons8.com/?size=96&id=D9RtvkuOe31p&format=png"/>'
+     : ""}
+
     </div>
 
     </div>
   </div>
 
         `
-       
+    //    ${isvarified ===true ?  "if true then what will happen" :  "if false then what will happen"}
 
         vidCon.append(card);
 
